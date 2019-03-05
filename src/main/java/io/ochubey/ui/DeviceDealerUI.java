@@ -1,0 +1,68 @@
+package io.ochubey.ui;
+
+import com.vaadin.annotations.Theme;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
+import io.ochubey.devices.Device;
+import io.ochubey.devices.repository.DeviceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * Created by o.chubey on 5/24/18.
+ */
+@SpringUI
+@Theme("valo")
+public class DeviceDealerUI extends UI {
+
+    private VerticalLayout layuot;
+    private Grid<Device> grid = new Grid<>();
+
+    @Autowired
+    private DeviceRepository repository;
+
+    @Override
+    protected void init(VaadinRequest request) {
+        setupLayout();
+        addHeader();
+        addGrid();
+        addButtons();
+    }
+
+    private void addGrid() {
+        setSizeFull();
+        grid.addColumn(Device::getPlatform).setCaption("Platform").setWidthUndefined();
+        grid.addColumn(Device::getDeviceName).setCaption("Device Name");
+        grid.addColumn(Device::getPlatformVersion).setCaption("Version");
+        grid.addColumn(Device::getUdid).setCaption("UDID");
+        grid.addColumn(Device::getDeviceStatus).setCaption("Device Status");
+        grid.setItems(repository.findAll());
+        grid.setWidth("100%");
+        grid.setHeight("600px");
+        layuot.addComponent(grid);
+    }
+
+    private void addButtons() {
+        HorizontalLayout buttonsLayout = new HorizontalLayout();
+        Button refresh = new Button("REFRESH");
+        refresh.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        refresh.addClickListener(e -> grid.setItems(repository.findAll()));
+        buttonsLayout.addComponents(refresh);
+        layuot.addComponent(buttonsLayout);
+    }
+
+    private void addHeader() {
+        Label header = new Label("Device Dealer");
+        header.addStyleName(ValoTheme.LABEL_H1);
+        header.setSizeUndefined();
+        layuot.addComponent(header);
+    }
+
+    private void setupLayout() {
+        layuot = new VerticalLayout();
+        layuot.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        setContent(layuot);
+    }
+
+}
