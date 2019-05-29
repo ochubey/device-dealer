@@ -22,7 +22,7 @@ public class AndroidLocator implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(AndroidLocator.class);
     private static final String ANDROID_DEVICE_LOCATOR_COMMAND = "adb devices -l";
-    private String adbShellPrefix = "adb -s %s shell %s";
+    private String adbShellPattern = "adb -s %s shell %s";
     private DeviceUpdater deviceUpdater;
 
     public AndroidLocator(DeviceRepository repository) {
@@ -88,7 +88,7 @@ public class AndroidLocator implements Runnable {
         String adbVersionCommand = "getprop ro.build.version.release";
         String platformVersion = null;
         try {
-            String command = String.format(adbShellPrefix, udid, adbVersionCommand);
+            String command = String.format(adbShellPattern, udid, adbVersionCommand);
             Process process = Runtime.getRuntime().exec(command);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
             platformVersion = stdInput.readLine();
@@ -99,10 +99,19 @@ public class AndroidLocator implements Runnable {
     }
 
     private String getNameByUdid(String udid) {
+        String emulatorUdidPrefix = "emulator";
         String adbModelCommand = "getprop ro.product.model";
+        String adbEmulatorNamePattern = "adb -s %s emu avd name";
+
         String deviceName = null;
+        String command;
+        if (udid.contains(emulatorUdidPrefix)) {
+            command = String.format(adbEmulatorNamePattern, udid);
+        } else {
+            command = String.format(adbShellPattern, udid, adbModelCommand);
+        }
+
         try {
-            String command = String.format(adbShellPrefix, udid, adbModelCommand);
             Process process = Runtime.getRuntime().exec(command);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
             deviceName = stdInput.readLine();

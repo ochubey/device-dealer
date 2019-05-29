@@ -13,7 +13,7 @@ Before running service, please update config.properties according to your needs:
 |DEVELOPMENT_TEAM=0000000000| Unique id of your team that could be found on https://developer.apple.com/account and needed for execution of Appium tests on real iOS devices. [Please refer to Appium documentation for more information].|
 |PRODUCT_BUNDLE_IDENTIFIER=com.facebook.WebDriverAgentRunner| Default value of WDA bundle. In some cases need to be updated. [Please refer to Appium documentation for more information].|
 |CODE_SIGN_IDENTITY=iPhone Developer| Another option that needed for WebDriverAgentRunner to be installed on iOS devices. [Please refer to Appium documentation for more information].|
-|USE_EMULATORS=false | Flag will tell service if Android Emulators should be ignored during Android devices search in your system.|
+|USE_EMULATORS=true | Flag will tell service if Android Emulators should be ignored during Android devices search in your system.|
 
 In order to run service from code execute following command from the root folder of the project:
 ```sh 

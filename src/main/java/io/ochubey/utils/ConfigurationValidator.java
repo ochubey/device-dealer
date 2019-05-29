@@ -102,7 +102,7 @@ public class ConfigurationValidator {
             prop.setProperty(CODE_SIGN_IDENTITY, "iPhone Developer");
             prop.setProperty(PRODUCT_BUNDLE_IDENTIFIER, "com.facebook.WebDriverAgentRunner");
             prop.setProperty(BLACK_LIST_BUNDLE_IDS, "WebDriverAgentRunner,appium");
-            prop.setProperty(USE_EMULATORS, "false");
+            prop.setProperty(USE_EMULATORS, "true");
 
             prop.store(output, null);
             LOG.error("Configuration file was not found and default settings were defined. Please update {} with your data and run " +
