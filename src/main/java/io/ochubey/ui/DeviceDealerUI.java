@@ -35,21 +35,35 @@ public class DeviceDealerUI extends UI {
         grid.addColumn(Device::getPlatform).setCaption("Platform").setWidthUndefined();
         grid.addColumn(Device::getDeviceName).setCaption("Device Name");
         grid.addColumn(Device::getPlatformVersion).setCaption("Version");
+        grid.addColumn(Device::getServerPort).setCaption("Server Port");
         grid.addColumn(Device::getUdid).setCaption("UDID");
         grid.addColumn(Device::getDeviceStatus).setCaption("Device Status");
         grid.setItems(repository.findAll());
         grid.setWidth("100%");
-        grid.setHeight("600px");
+        grid.setHeight("300px");
         layuot.addComponent(grid);
     }
 
     private void addButtons() {
-        HorizontalLayout buttonsLayout = new HorizontalLayout();
+        HorizontalLayout mainButtonsLayout = new HorizontalLayout();
+        HorizontalLayout secondaryButtonsLayout = new HorizontalLayout();
+        VerticalSplitPanel splitPanel = new VerticalSplitPanel();
+
         Button refresh = new Button("REFRESH");
         refresh.addStyleName(ValoTheme.BUTTON_PRIMARY);
         refresh.addClickListener(e -> grid.setItems(repository.findAll()));
-        buttonsLayout.addComponents(refresh);
-        layuot.addComponent(buttonsLayout);
+        Button terminateAndroidSessions = new Button("Terminate Android sessions");
+        terminateAndroidSessions.addStyleName(ValoTheme.BUTTON_DANGER);
+        terminateAndroidSessions.addClickListener(e -> grid.setItems(repository.setAndroidToIdle()));
+
+        Button terminateIphoneSessions = new Button("Terminate iPhone sessions");
+        terminateIphoneSessions.addStyleName(ValoTheme.BUTTON_DANGER);
+        terminateIphoneSessions.addClickListener(e -> grid.setItems(repository.setIosToIdle()));
+
+        mainButtonsLayout.addComponent(refresh);
+        secondaryButtonsLayout.addComponents(terminateAndroidSessions, terminateIphoneSessions);
+
+        layuot.addComponents(mainButtonsLayout, splitPanel, secondaryButtonsLayout);
     }
 
     private void addHeader() {

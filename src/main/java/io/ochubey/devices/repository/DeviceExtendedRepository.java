@@ -16,4 +16,9 @@ public interface DeviceExtendedRepository {
 
     @Query(value = "{'platform' : ?0}")
     List<Device> findAllConnectedByPlatform(@Param("platform") String platform);
+
+    List<Device> setAndroidToIdle();
+
+    List<Device> setIosToIdle();
+
 }

@@ -16,8 +16,15 @@ public interface DeviceRepository extends MongoRepository<Device, String>, Devic
 
     List<Device> findAllConnectedByPlatform(@Param("platform") String platform);
 
+    List<Device> setAndroidToIdle();
+
+    List<Device> setIosToIdle();
+
     @Query(value = "{'udid' :?0}")
     Device findByUdid(String udid);
+
+    @Query(value = "{'version' :?0}")
+    Device findByVersion(int version);
 
     @Query(value = "{'webPort' :?0}")
     Device findByWebPort(int webPort);
