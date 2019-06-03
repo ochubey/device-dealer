@@ -69,12 +69,8 @@ public class AndroidAppiumServer {
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability(MobileCapabilityType.UDID, device.getUdid());
 
-            String appiumJs = "/usr/local/bin/appium";
-            String driverExecutable = "/usr/local/bin/node";
             AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder()
                     .withLogFile(new File(appiumLogPath))
-                    .usingDriverExecutable(new File(driverExecutable))
-                    .withAppiumJS(new File(appiumJs))
                     .withIPAddress(IP_ADDRESS)
                     .usingPort(device.getServerPort())
                     .withArgument(SESSION_OVERRIDE)

@@ -209,10 +209,6 @@ public class DeviceUpdater {
             } catch (IOException | InterruptedException e) {
                 LOG.trace(e.getMessage(), e);
             }
-        } else if (OS.isFamilyWindows()) {
-            //TODO: implement process killing for Windows based OS
-        } else if (OS.isFamilyUnix()) {
-            //TODO: implement process killing for Unix based OS
         } else {
             LOG.error("Unable to stop process by port number: {} on your operating system", port);
         }
