@@ -16,7 +16,7 @@ import java.util.List;
 import static io.appium.java_client.remote.MobilePlatform.IOS;
 
 
-public class IphoneLocator implements Runnable{
+public class IphoneLocator implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(IphoneLocator.class);
     private static final String IPHONE_DEVICE_LOCATOR_COMMAND = "instruments -s devices";
@@ -68,19 +68,25 @@ public class IphoneLocator implements Runnable{
 
     @Nullable
     private DeviceDescriptor extractDeviceDescriptor(String deviceString) {
-        deviceString = deviceString.replace(" (", "^");
-        deviceString = deviceString.replace(") [", "^");
-        deviceString = deviceString.replace("]", "^");
+        String deviceName;
 
-        String[] deviceDetails = deviceString.split("\\^");
-        if (deviceDetails.length >= 3) {
-
-            String deviceName = deviceDetails[0];
-            String platformVersion = deviceDetails[1];
-            String udid = deviceDetails[2];
-
-            return new DeviceDescriptor(deviceName, platformVersion, udid);
+        String[] nameExtracted = deviceString.split(" \\(");
+        if (nameExtracted.length == 2) {
+            deviceName = nameExtracted[0];
+        } else {
+            return null;
         }
-        return null;
+
+        String platformVersion;
+        String[] platformExtracted = nameExtracted[1].split("\\) \\[");
+        if (platformExtracted.length == 2) {
+            platformVersion = platformExtracted[0];
+        } else {
+            return null;
+        }
+
+        String udid = platformExtracted[1].replace("]", "");
+
+        return new DeviceDescriptor(deviceName, platformVersion, udid);
     }
 }

@@ -39,8 +39,8 @@ public class WdaServer {
     private String wdaProjectPath = "/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/";
     private File wdaProject = new File(wdaProjectPath + "WebDriverAgent.xcodeproj");
 
-    private static File iproxyLog;
-    private static File xcodebuildLog;
+    private File iproxyLog;
+    private File xcodebuildLog;
     private String buildScript;
 
     public WdaServer(Device device) {
@@ -95,6 +95,7 @@ public class WdaServer {
                 LOG.error("Please follow instructions described on \n" +
                         "https://github.com/imurchie/appium-xcuitest-driver/blob/isaac-rs/docs/real-device-config.md");
                 LOG.error("To debug the issue run following command from terminal: ");
+                LOG.error(buildScript);
                 killIproxy(driverPort);
                 return null;
             }

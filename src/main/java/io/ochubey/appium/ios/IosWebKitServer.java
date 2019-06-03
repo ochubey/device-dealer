@@ -25,7 +25,7 @@ public class IosWebKitServer {
         throw new IllegalStateException("Utility class");
     }
 
-    static boolean isIwdRunning(@NotNull Device device) {
+    protected static boolean isIwdRunning(@NotNull Device device) {
         int webPort = device.getWebPort();
         String udid = device.getUdid();
 

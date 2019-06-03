@@ -25,9 +25,9 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
     private static final String ANDROID = "android";
 
     @Autowired
-    MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;
     @Autowired
-    DeviceRepository repository;
+    private DeviceRepository repository;
 
     private final ReentrantLock lock = new ReentrantLock();
 
