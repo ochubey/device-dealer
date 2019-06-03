@@ -12,9 +12,9 @@ Before running service, please update config.properties according to your needs:
 | --- | --- |
 |DEVICE_POOL_TIMEOUT=1000 | Time in milliseconds to check if device execution state has been changed |
 |BLACK_LIST_BUNDLE_IDS=WebDriverAgentRunner,appium| List of comma separated bundle ids of application that need to be removed from the device after it was connected to service |
-|DEVELOPMENT_TEAM=0000000000| Unique id of your team that could be found on https://developer.apple.com/account and needed for execution of Appium tests on real iOS devices. [Please refer to Appium documentation for more information].|
-|PRODUCT_BUNDLE_IDENTIFIER=com.facebook.WebDriverAgentRunner| Default value of WDA bundle. In some cases need to be updated. [Please refer to Appium documentation for more information].|
-|CODE_SIGN_IDENTITY=iPhone Developer| Another option that needed for WebDriverAgentRunner to be installed on iOS devices. [Please refer to Appium documentation for more information].|
+|DEVELOPMENT_TEAM=0000000000| Unique id of your team that could be found on https://developer.apple.com/account and needed for execution of Appium tests on real iOS devices. [read more].|
+|PRODUCT_BUNDLE_IDENTIFIER=com.facebook.WebDriverAgentRunner| Default value of WDA bundle. In some cases need to be updated. [read more].|
+|CODE_SIGN_IDENTITY=iPhone Developer| Another option that needed for WebDriverAgentRunner to be installed on iOS devices. [read more].|
 |USE_EMULATORS=true | Flag will tell service if Android Emulators should be ignored during Android devices search in your system.|
 
 In order to run service from code execute following command from the root folder of the project:
@@ -129,4 +129,4 @@ npm run doctor
 [node.js]:http://nodejs.org/download/
 [Download Android SDK]:http://developer.android.com/sdk/installing/index.html
 [device-java-agent]:https://jitpack.io/#org.bitbucket.ochubey/device-java-agent
-[Please refer to Appium documentation for more information]:http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
+[read more]:http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
