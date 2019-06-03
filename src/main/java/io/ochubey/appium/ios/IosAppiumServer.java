@@ -84,12 +84,8 @@ public class IosAppiumServer {
             desiredCapabilities.setCapability(MobileCapabilityType.UDID, device.getUdid());
             desiredCapabilities.setCapability(AllCapabilityType.WEB_DRIVER_AGENT_URL, wdaUrl);
 
-            String appiumJs = "/usr/local/bin/appium";
-            String driverExecutable = "/usr/local/bin/node";
             AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder()
                     .withLogFile(new File(appiumLogPath))
-                    .usingDriverExecutable(new File(driverExecutable))
-                    .withAppiumJS(new File(appiumJs))
                     .withIPAddress(IP_ADDRESS)
                     .usingPort(device.getServerPort())
                     .withArgument(SESSION_OVERRIDE)
