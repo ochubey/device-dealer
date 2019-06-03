@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import java.io.OutputStream;
 
+import static org.apache.log4j.Logger.getLogger;
+
 /**
  * Created by o.chubey on 4/19/18.
  */
@@ -28,7 +30,7 @@ public class AppiumLogOutputStream extends OutputStream {
      * Creates a new log output stream which logs bytes.
      */
     public AppiumLogOutputStream() {
-        setLogger(org.apache.log4j.Logger.getLogger("outLog"));
+        setAppiumLogger(getLogger("outLog"));
         setLevel(Level.ALL);
         mem = "";
     }
@@ -38,7 +40,7 @@ public class AppiumLogOutputStream extends OutputStream {
      *
      * @param logger the logger
      */
-    public void setLogger(Logger logger) {
+    private void setAppiumLogger(Logger logger) {
         this.logger = logger;
     }
 
@@ -47,7 +49,7 @@ public class AppiumLogOutputStream extends OutputStream {
      *
      * @return DOCUMENT ME!
      */
-    public Logger getLogger() {
+    public Logger getAppiumLogger() {
         return logger;
     }
 

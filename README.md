@@ -1,7 +1,9 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1da616b4ab1e4bce8e661925c19fd6cb)](https://www.codacy.com/app/chubej/Device-Dealer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ochubey/Device-Dealer&amp;utm_campaign=Badge_Grade)
+![Device Dealer icon](https://raw.githubusercontent.com/ochubey/Device-Dealer/master/src/main/resources/device_dealer.png)
 # Device-Dealer
 Device management service that will help you to run Appium tests in parallel with real devices in your local lab.
+
+![Device Dealer example screenshot](https://raw.githubusercontent.com/ochubey/Device-Dealer/master/src/main/resources/dd_example_screen.png)
 
 ## Service compilation
 Before running service, please update config.properties according to your needs:
@@ -14,6 +16,14 @@ Before running service, please update config.properties according to your needs:
 |PRODUCT_BUNDLE_IDENTIFIER=com.facebook.WebDriverAgentRunner| Default value of WDA bundle. In some cases need to be updated. [Please refer to Appium documentation for more information].|
 |CODE_SIGN_IDENTITY=iPhone Developer| Another option that needed for WebDriverAgentRunner to be installed on iOS devices. [Please refer to Appium documentation for more information].|
 |USE_EMULATORS=true | Flag will tell service if Android Emulators should be ignored during Android devices search in your system.|
+ Configuration value | Purpose 
+ --- | --- 
+DEVICE_POOL_TIMEOUT=1000 | Time in milliseconds to check if device execution state has been changed 
+BLACK_LIST_BUNDLE_IDS=WebDriverAgentRunner,appium| List of comma separated bundle ids of application that need to be removed from the device after it was connected to service 
+DEVELOPMENT_TEAM=0000000000| Unique id of your team that could be found on [Apple Developer Account](https://developer.apple.com/account) and needed for execution of Appium tests on real iOS devices. [read more].
+PRODUCT_BUNDLE_IDENTIFIER=com.facebook.WebDriverAgentRunner| Default value of WDA bundle. In some cases need to be updated. [read more].
+CODE_SIGN_IDENTITY=iPhone Developer| Another option that needed for WebDriverAgentRunner to be installed on iOS devices. [read more].
+USE_EMULATORS=true | Flag will tell service if Android Emulators should be ignored during Android devices search in your system.
 
 In order to run service from code execute following command from the root folder of the project:
 ```sh 
@@ -37,7 +47,7 @@ In order to establish connection between Device Dealer and Appium Driver, please
 
  [![](https://jitpack.io/v/org.bitbucket.ochubey/device-java-agent.svg)](https://jitpack.io/#org.bitbucket.ochubey/device-java-agent)
 
-#### Code snippets
+### Code snippets
 Snippet#1: by default Device Dealer will be executed on localhost:8989 and agent will check for free device 360 times every 10 seconds and if device would not be found - nothing would be returned.
 Both host and lookup strategy could be changed based on infrastructure needs in further releases.
 
@@ -87,18 +97,18 @@ Make sure that Xcode is selected and can be used from terminal:
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 ```
 ### Homebrew
-Install homebrew by executing the following in a terminal
+Install Homebrew by executing the following in a terminal
 ```sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-### node.js:
+### node.js
 Download and install [node.js]. Make sure node is available on your $PATH.
 
 To install using homebrew run:
 ```sh
 brew install node
 ```
-### Other dependencies:
+### Other dependencies
 Install all locally managed node modules:
 ```sh
 npm install
@@ -113,7 +123,7 @@ brew install ideviceinstaller
 brew install carthage
 npm install -g ios-deploy
 ```
-### Install and configure Android SDK:
+### Install and configure Android SDK
 [Download Android SDK] and follow installation instructions to configure it.
 Make sure that your PATH, ANDROID_HOME, JAVA_HOME are properly configured.
 
@@ -122,11 +132,9 @@ Follow instructions from Appium Doctor to configure workstation configuration:
 npm run doctor
 ```
 
-https://ochubey.in.ua/
 <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
-[Homebrew]:http://brew.sh/
 [node.js]:http://nodejs.org/download/
 [Download Android SDK]:http://developer.android.com/sdk/installing/index.html
 [device-java-agent]:https://jitpack.io/#org.bitbucket.ochubey/device-java-agent
-[Please refer to Appium documentation for more information]:http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
+[read more]:http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
