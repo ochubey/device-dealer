@@ -30,14 +30,19 @@ public class AndroidLocator implements Runnable {
         deviceUpdater = new DeviceUpdater(repository);
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
-        do {
-            checkFroDeviceStatus();
-        } while (true);
+        try {
+            while (true) {
+                checkForDeviceStatus();
+            }
+        } catch (IllegalStateException ex) {
+            LOG.error("Looks like server execution was interrupted.");
+        }
     }
 
-    private void checkFroDeviceStatus() {
+    private void checkForDeviceStatus() {
         List<String> currentDevices = saveActiveAndroidDevices();
         deviceUpdater.deleteInactiveDevice(ANDROID, currentDevices);
         DeviceWaitHelper.doSleep();

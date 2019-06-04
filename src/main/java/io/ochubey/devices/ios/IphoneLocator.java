@@ -27,11 +27,16 @@ public class IphoneLocator implements Runnable {
         deviceUpdater = new DeviceUpdater(repository);
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
-        do {
-            checkForDeviceStatus();
-        } while (true);
+        try {
+            while (true) {
+                checkForDeviceStatus();
+            }
+        } catch (IllegalStateException ex) {
+            LOG.error("Looks like server execution was interrupted.");
+        }
     }
 
     private void checkForDeviceStatus() {
