@@ -22,11 +22,11 @@ public class AppiumServicePool {
         return instance;
     }
 
-    public List<AppiumDriverLocalService> getServiceList() {
-        return serviceList;
-    }
-
     private static void initServiceList() {
         serviceList = new ArrayList<>();
+    }
+
+    public List<AppiumDriverLocalService> getServiceList() {
+        return serviceList;
     }
 }

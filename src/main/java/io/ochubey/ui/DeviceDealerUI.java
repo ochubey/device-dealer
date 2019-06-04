@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Theme("valo")
 public class DeviceDealerUI extends UI {
 
-    private VerticalLayout layuot;
+    private VerticalLayout layout;
     private Grid<Device> grid = new Grid<>();
 
     @Autowired
@@ -50,7 +50,7 @@ public class DeviceDealerUI extends UI {
         grid.setItems(repository.findAll());
         grid.setWidth("100%");
         grid.setHeight("300px");
-        layuot.addComponent(grid);
+        layout.addComponent(grid);
     }
 
     private void addButtons() {
@@ -72,20 +72,20 @@ public class DeviceDealerUI extends UI {
         mainButtonsLayout.addComponent(refresh);
         secondaryButtonsLayout.addComponents(terminateAndroidSessions, terminateIphoneSessions);
 
-        layuot.addComponents(mainButtonsLayout, splitPanel, secondaryButtonsLayout);
+        layout.addComponents(mainButtonsLayout, splitPanel, secondaryButtonsLayout);
     }
 
     private void addHeader() {
         Label header = new Label("Device Dealer");
         header.addStyleName(ValoTheme.LABEL_H1);
         header.setSizeUndefined();
-        layuot.addComponent(header);
+        layout.addComponent(header);
     }
 
     private void setupLayout() {
-        layuot = new VerticalLayout();
-        layuot.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        setContent(layuot);
+        layout = new VerticalLayout();
+        layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        setContent(layout);
     }
 
 }

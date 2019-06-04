@@ -47,14 +47,25 @@ public class WdaServer {
 
     public WdaServer(Device device) {
         String deviceFolder = format("./build/ios/%s/", device.getUdid());
-        new File(deviceFolder).mkdirs();
+        if (new File(deviceFolder).mkdirs()) {
+            LOG.info("Folder {} was created", deviceFolder);
+        }
         iproxyLog = new File(format("%s/iproxy.log", deviceFolder));
         xcodebuildLog = new File(format("%s/build.log", deviceFolder));
     }
 
+    public static boolean isServiceRunning(URL status, int timeout) {
+        try {
+            new UrlChecker().waitUntilAvailable(timeout, TimeUnit.MILLISECONDS, status);
+            return true;
+        } catch (UrlChecker.TimeoutException e) {
+            return false;
+        }
+    }
+
     @NotNull
     @Contract(" -> new")
-    private String[] getWdaPrebiuldScript() {
+    private String[] getWdaPreconditionScript() {
         return new String[]{
                 format("cd %s;", wdaProjectPath),
                 "mkdir -p Resources/WebDriverAgent.bundle;",
@@ -125,7 +136,7 @@ public class WdaServer {
         scriptContent.add("#!/bin/bash");
         scriptContent.add(String.join(" ", getRemoveWdaCmdLine(deviceId)));
         scriptContent.add(String.join(" ", getKillIproxyCmdline(driverPort)));
-        scriptContent.add(String.join(" ", getWdaPrebiuldScript()));
+        scriptContent.add(String.join(" ", getWdaPreconditionScript()));
         scriptContent.add(String.join(" ", getIproxyCmdline(driverPort, deviceId)));
         scriptContent.add(String.join(" ", generateXcodebuildCmdline()));
         buildScript = String.join(" ", scriptContent);
@@ -141,15 +152,6 @@ public class WdaServer {
                 "--uninstall_only",
                 "--bundle_id com.apple.test.WebDriverAgentRunner-Runner;"
         };
-    }
-
-    public static boolean isServiceRunning(URL status, int timeout) {
-        try {
-            new UrlChecker().waitUntilAvailable(timeout, TimeUnit.MILLISECONDS, status);
-            return true;
-        } catch (UrlChecker.TimeoutException e) {
-            return false;
-        }
     }
 
     private List<String> generateXcodebuildCmdline() {

@@ -64,7 +64,9 @@ public class IosAppiumServer {
             deleteAppsFromDevice(device.getUdid());
             String logLevelValue = "error:debug";
             String appiumLogFolder = String.format("./build/ios/%s", device.getUdid());
-            new File(appiumLogFolder).mkdirs();
+            if (new File(appiumLogFolder).mkdirs()) {
+                LOG.info("Folder {} was created", appiumLogFolder);
+            }
             String appiumLogPath = appiumLogFolder + "/appium.log";
 
             String wdaUrl = getWdaUrl(device);

@@ -20,15 +20,12 @@ import static io.ochubey.devices.repository.DeviceUpdater.cleanDeviceDataBaseOnS
 public class Application implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+    private static final EnvironmentValidator envValidator = new EnvironmentValidator();
     private static ConfigurationValidator configurationValidator;
-
-    @Autowired
-    private DeviceRepository repository;
-
     @Value("${server.port}")
     protected int port;
-
-    private static final EnvironmentValidator envValidator = new EnvironmentValidator();
+    @Autowired
+    private DeviceRepository repository;
 
     public static void main(String[] args) {
         configurationValidator = new ConfigurationValidator();
