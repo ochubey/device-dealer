@@ -1,6 +1,6 @@
 package io.ochubey.devices.ios;
 
-import io.ochubey.appium.DeviceWaiter;
+import io.ochubey.appium.DeviceWaitHelper;
 import io.ochubey.devices.DeviceDescriptor;
 import io.ochubey.devices.repository.DeviceRepository;
 import io.ochubey.devices.repository.DeviceUpdater;
@@ -37,7 +37,7 @@ public class IphoneLocator implements Runnable {
     private void checkForDeviceStatus() {
         List<String> currentDevices = saveActiveDevices();
         deviceUpdater.deleteInactiveDevice(IOS, currentDevices);
-        DeviceWaiter.doSleep();
+        DeviceWaitHelper.doSleep();
     }
 
     private List<String> saveActiveDevices() {

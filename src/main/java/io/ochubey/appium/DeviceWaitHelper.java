@@ -9,11 +9,11 @@ import static java.lang.Thread.sleep;
 /**
  * Created by ochubey on 1/12/18.
  */
-public class DeviceWaiter {
+public class DeviceWaitHelper {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeviceWaiter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceWaitHelper.class);
 
-    private DeviceWaiter() {
+    private DeviceWaitHelper() {
         throw new IllegalStateException("Utility class");
     }
 

@@ -1,7 +1,7 @@
 package io.ochubey.appium.ios;
 
 import io.ochubey.devices.Device;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class IosWebKitServer {
 
         URL serverUrl = getUrl(webPort);
 
-        if (WdaServer.isServiceRunning(serverUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)) {
+        if (WdaServer.isServiceRunning(serverUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)) {
             LOG.error("There is no need to create new session - IWD is already on the mentioned port.");
             return true;
         } else {

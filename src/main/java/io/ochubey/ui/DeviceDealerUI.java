@@ -3,7 +3,16 @@ package io.ochubey.ui;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
+
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
+
 import com.vaadin.ui.themes.ValoTheme;
 import io.ochubey.devices.Device;
 import io.ochubey.devices.repository.DeviceRepository;

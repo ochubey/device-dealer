@@ -1,6 +1,6 @@
 package io.ochubey.devices.android;
 
-import io.ochubey.appium.DeviceWaiter;
+import io.ochubey.appium.DeviceWaitHelper;
 import io.ochubey.devices.DeviceDescriptor;
 import io.ochubey.devices.repository.DeviceRepository;
 import io.ochubey.devices.repository.DeviceUpdater;
@@ -40,7 +40,7 @@ public class AndroidLocator implements Runnable {
     private void checkFroDeviceStatus() {
         List<String> currentDevices = saveActiveAndroidDevices();
         deviceUpdater.deleteInactiveDevice(ANDROID, currentDevices);
-        DeviceWaiter.doSleep();
+        DeviceWaitHelper.doSleep();
     }
 
     private List<String> saveActiveAndroidDevices() {
