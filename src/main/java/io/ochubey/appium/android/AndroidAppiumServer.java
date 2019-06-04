@@ -62,7 +62,9 @@ public class AndroidAppiumServer {
             unlockDevice(device.getUdid());
             String logLevelValue = "error:debug";
             String appiumLogFolder = String.format("./build/android/%s", device.getUdid());
-            new File(appiumLogFolder).mkdirs();
+            if (new File(appiumLogFolder).mkdirs()) {
+                LOG.info("Folder {} was created", appiumLogFolder);
+            }
             String appiumLogPath = appiumLogFolder + "/appium.log";
             deleteAppOnDevice(device.getUdid());
 

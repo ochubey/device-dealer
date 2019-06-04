@@ -30,27 +30,9 @@ public class AppiumLogOutputStream extends OutputStream {
      * Creates a new log output stream which logs bytes.
      */
     public AppiumLogOutputStream() {
-        setLogger(getLogger("outLog"));
-        setLevel(Level.ALL);
+        this.logger = getLogger("outLog");
+        this.level = Level.ALL;
         mem = "";
-    }
-
-    /**
-     * Sets the logger where to log the bytes.
-     *
-     * @param logger the logger
-     */
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
-    /**
-     * Sets the logging level.
-     *
-     * @param level the level
-     */
-    private void setLevel(Level level) {
-        this.level = level;
     }
 
     /**
@@ -58,6 +40,7 @@ public class AppiumLogOutputStream extends OutputStream {
      *
      * @param b writer
      */
+    @Override
     public void write(int b) {
         flush();
     }

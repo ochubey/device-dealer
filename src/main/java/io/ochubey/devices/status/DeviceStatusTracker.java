@@ -129,6 +129,7 @@ public class DeviceStatusTracker implements Runnable {
 
     /**
      * Method that returns if specific Appium service still has ongoing session
+     *
      * @return is session still active
      */
     private boolean isSessionEmpty() {

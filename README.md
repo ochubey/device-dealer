@@ -26,7 +26,7 @@ In order to get distributable .jar file execute following command from the root 
 ```sh
 ./gradlew clean build
 ```
-Then navigate to /build/libs/ folder and copy dd-\<version>.jar file. Jar file can be exeucted on workstation with JRE using basic command:
+Then navigate to /build/libs/ folder and copy dd-\<version>.jar file. Jar file can be executed on workstation with JRE using basic command:
 ```bash
 java -jar dd-<version>.jar
 ```
@@ -109,7 +109,7 @@ Authorise iOS Instrumentation (needed after Xcode install/update):
 ```sh
 npm run authorize-ios
 ```
-Install ideviceinstaller and carthage for Appium to install application and WDA. Also ios-deploy is needed globaly in order to install applications to the real devices.
+Install ideviceinstaller and carthage for Appium to install application and WDA. Also ios-deploy is needed globally in order to install applications to the real devices.
 ```sh
 brew install ideviceinstaller
 brew install carthage

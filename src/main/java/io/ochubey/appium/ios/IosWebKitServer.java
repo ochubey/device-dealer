@@ -71,7 +71,9 @@ public class IosWebKitServer {
 
     private static String getIwdCmdLine(int webPort, String udid) {
         String appiumLogFolder = String.format("./build/ios/%s/", udid);
-        new File(appiumLogFolder).mkdirs();
+        if (new File(appiumLogFolder).mkdirs()) {
+            LOG.info("Folder {} was created", appiumLogFolder);
+        }
         return String.format("ios_webkit_debug_proxy -c %s:%s > %s/iwd.log 2>&1 &", udid, webPort, appiumLogFolder);
     }
 }

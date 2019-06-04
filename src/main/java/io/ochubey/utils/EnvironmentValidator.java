@@ -25,7 +25,7 @@ public class EnvironmentValidator {
     private boolean isBrewInstalled() {
         String command = "brew doctor";
         String msg = "Brew is not installed. \nPlease install brew using following instructions: https://brew.sh/\n" +
-                "If issue presist, please run `brew doctor` in your terminal to get more information about brew related issues";
+                "If issue persist, please run `brew doctor` in your terminal to get more information about brew related issues";
         return isPackageInstalled(command, msg);
     }
 
@@ -70,7 +70,7 @@ public class EnvironmentValidator {
 
     private boolean isAdbInstalled() {
         String command = "adb devices";
-        String msg = "Looks like Android Studio and SDK are not installed or misconfigured. " +
+        String msg = "Looks like Android Studio and SDK are not installed or not configured correctly. " +
                 "\nPlease install it using instructions: https://developer.android.com/studio/";
         return isPackageInstalled(command, msg);
     }

@@ -1,8 +1,8 @@
 package io.ochubey.devices.repository;
 
 import io.ochubey.devices.Device;
-import io.ochubey.devices.status.DeviceStatusTracker;
 import io.ochubey.devices.status.DeviceStatusHelper;
+import io.ochubey.devices.status.DeviceStatusTracker;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -23,13 +23,11 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
     private static final String PLATFORM = "platform";
     private static final String IOS = "ios";
     private static final String ANDROID = "android";
-
+    private final ReentrantLock lock = new ReentrantLock();
     @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
     private DeviceRepository repository;
-
-    private final ReentrantLock lock = new ReentrantLock();
 
     @Override
     public Device bookByPlatform(String platform) {

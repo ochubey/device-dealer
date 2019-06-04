@@ -1,4 +1,3 @@
-
 package io.ochubey.devices.repository;
 
 import io.ochubey.devices.Device;

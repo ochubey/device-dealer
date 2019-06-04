@@ -22,12 +22,58 @@ import static io.appium.java_client.remote.MobilePlatform.ANDROID;
 
 public class DeviceUpdater {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceUpdater.class);
-
-    private DeviceRepository repository;
     private final ReentrantLock client = new ReentrantLock();
+    private DeviceRepository repository;
 
     public DeviceUpdater(DeviceRepository repository) {
         this.repository = repository;
+    }
+
+    private static int getOpenPort() {
+        int port = 0;
+        try (ServerSocket socket = new ServerSocket(0)) {
+            socket.setReuseAddress(true);
+            port = socket.getLocalPort();
+        } catch (IOException e) {
+            LOG.trace(e.getMessage(), e);
+        }
+        return port;
+    }
+
+    public static void cleanDeviceDataBaseOnStart(@NotNull DeviceRepository repository) {
+        List<Device> deviceList = repository.findAll();
+        for (Device device : deviceList) {
+            killProcessByPort(device.getServerPort());
+            killProcessByPort(device.getDriverPort());
+            killProcessByPort(device.getWebPort());
+        }
+        repository.deleteAll();
+    }
+
+    public static void killProcessByPort(int port) {
+        if (OS.isFamilyMac()) {
+            String[] commands = new String[]{
+                    String.format("lsof -i tcp:%s", Integer.toString(port)),
+                    "| grep node",
+                    "| grep -v PID",
+                    "| grep LISTEN",
+                    "| grep -v grep",
+                    "| awk '{print $2}'",
+                    "| xargs kill;"
+            };
+
+            String command = String.join(" ", commands);
+
+            Process p;
+            try {
+                p = Runtime.getRuntime().exec(command);
+                p.waitFor();
+            } catch (IOException | InterruptedException e) {
+                LOG.trace(e.getMessage(), e);
+            }
+        } else {
+            LOG.error("Unable to stop process by port number: {} on your operating system", port);
+        }
     }
 
     private void saveDevice(String udid, String deviceName, String platform, String platformVersion) {
@@ -151,27 +197,6 @@ public class DeviceUpdater {
         }
     }
 
-    private static int getOpenPort() {
-        int port = 0;
-        try (ServerSocket socket = new ServerSocket(0)) {
-            socket.setReuseAddress(true);
-            port = socket.getLocalPort();
-        } catch (IOException e) {
-            LOG.trace(e.getMessage(), e);
-        }
-        return port;
-    }
-
-    public static void cleanDeviceDataBaseOnStart(@NotNull DeviceRepository repository) {
-        List<Device> deviceList = repository.findAll();
-        for (Device device : deviceList) {
-            killProcessByPort(device.getServerPort());
-            killProcessByPort(device.getDriverPort());
-            killProcessByPort(device.getWebPort());
-        }
-        repository.deleteAll();
-    }
-
     private void disconnectDevice(@NotNull Device device) {
         killProcessByPort(device.getDriverPort());
         killProcessByPort(device.getWebPort());
@@ -185,32 +210,6 @@ public class DeviceUpdater {
             AndroidAppiumServer.getServerUrl(repository, device);
         } else {
             IosAppiumServer.getServerUrl(repository, device);
-        }
-    }
-
-    public static void killProcessByPort(int port) {
-        if (OS.isFamilyMac()) {
-            String[] commands = new String[]{
-                    String.format("lsof -i tcp:%s", Integer.toString(port)),
-                    "| grep node",
-                    "| grep -v PID",
-                    "| grep LISTEN",
-                    "| grep -v grep",
-                    "| awk '{print $2}'",
-                    "| xargs kill;"
-            };
-
-            String command = String.join(" ", commands);
-
-            Process p;
-            try {
-                p = Runtime.getRuntime().exec(command);
-                p.waitFor();
-            } catch (IOException | InterruptedException e) {
-                LOG.trace(e.getMessage(), e);
-            }
-        } else {
-            LOG.error("Unable to stop process by port number: {} on your operating system", port);
         }
     }
 }

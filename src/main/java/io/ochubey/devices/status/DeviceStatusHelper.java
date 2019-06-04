@@ -4,7 +4,7 @@ package io.ochubey.devices.status;
  * Created by ochubey on 1/13/18.
  */
 public final class DeviceStatusHelper {
-    
+
     public static final String NEED_SETUP = "need_setup";
     public static final String IDLE = "idle";
     public static final String DISCONNECTED = "disconnected";

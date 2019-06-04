@@ -20,15 +20,13 @@ public class ConfigurationValidator {
     private static final String CODE_SIGN_IDENTITY = "CODE_SIGN_IDENTITY";
     private static final String DEVELOPMENT_TEAM = "DEVELOPMENT_TEAM";
     private static final String USE_EMULATORS = "USE_EMULATORS";
-
-    private Properties prop;
-
     private static String productBundleIdentifier;
     private static String[] blackListBundleIds;
     private static int devicePoolTimeoutMills;
     private static boolean shouldUseEmulators;
     private static String codeSignIdentity;
     private static String devTeam;
+    private Properties prop;
 
     public ConfigurationValidator() {
         prop = new Properties();
