@@ -1,5 +1,6 @@
 package io.ochubey.utils;
 
+import org.apache.commons.exec.OS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,17 @@ public class EnvironmentValidator {
     private static final Logger LOG = LoggerFactory.getLogger(EnvironmentValidator.class);
 
     public boolean isCommonEnvironmentReady() {
-        return isMongoDbInstalled();
+        return isMacOs() && isMongoDbInstalled();
+    }
+
+    private boolean isMacOs() {
+        if (OS.isFamilyMac()) {
+            return true;
+        } else {
+            LOG.error("Currently Device Dealer could be executed on Mac OS only. " +
+                    "Support of other platforms is not implemented yet. Please contribute or request changes.");
+            return false;
+        }
     }
 
     public boolean isiOSEnvironmentReady() {

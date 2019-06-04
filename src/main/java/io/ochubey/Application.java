@@ -5,7 +5,6 @@ import io.ochubey.devices.ios.IphoneLocator;
 import io.ochubey.devices.repository.DeviceRepository;
 import io.ochubey.utils.ConfigurationValidator;
 import io.ochubey.utils.EnvironmentValidator;
-import org.apache.commons.exec.OS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class Application implements CommandLineRunner {
         if (envValidator.isCommonEnvironmentReady()) {
             SpringApplication.run(Application.class, args);
         } else {
-            LOG.error("Cannot start application");
+            LOG.error("Cannot start application due to incompatible software or operating system.");
         }
     }
 
@@ -58,23 +57,19 @@ public class Application implements CommandLineRunner {
     }
 
     private void initIphoneThread() {
-        if (OS.isFamilyMac()) {
-            if (configurationValidator.validateIos()) {
-                if (envValidator.isiOSEnvironmentReady()) {
-                    IphoneLocator iphoneLocator = new IphoneLocator(repository);
-                    Thread iphoneThread = new Thread(iphoneLocator);
-                    iphoneThread.setName("iPhoneThread");
-                    iphoneThread.start();
-                } else {
-                    LOG.error("Cannot start iPhone locator since environment is not ready. " +
-                            "\nPlease refer to ERROR messages above.");
-                }
+        if (configurationValidator.validateIos()) {
+            if (envValidator.isiOSEnvironmentReady()) {
+                IphoneLocator iphoneLocator = new IphoneLocator(repository);
+                Thread iphoneThread = new Thread(iphoneLocator);
+                iphoneThread.setName("iPhoneThread");
+                iphoneThread.start();
             } else {
-                LOG.error("Information about developers identity needed for WDA build not found. " +
-                        "iPhone device locator started would not be started.");
+                LOG.error("Cannot start iPhone locator since environment is not ready. " +
+                        "\nPlease refer to ERROR messages above.");
             }
         } else {
-            LOG.warn("Only Android devices could be served on non OSX systems.");
+            LOG.error("Information about developers identity needed for WDA build not found. " +
+                    "iPhone device locator started would not be started.");
         }
     }
 }
