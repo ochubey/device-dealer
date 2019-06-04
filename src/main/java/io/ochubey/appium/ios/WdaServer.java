@@ -1,7 +1,7 @@
 package io.ochubey.appium.ios;
 
 import io.ochubey.devices.Device;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.net.UrlChecker;
@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static io.ochubey.utils.ConfigurationValidator.*;
+import static io.ochubey.utils.ConfigurationValidator.getDevTeam;
+import static io.ochubey.utils.ConfigurationValidator.getCodeSignIdentity;
+import static io.ochubey.utils.ConfigurationValidator.getProductBundleIdentifier;
 import static java.lang.String.format;
 
 /**
@@ -66,7 +68,7 @@ public class WdaServer {
             String wdaStatusUrl = "http://%s:%s/%s";
             String wdaUrl = "http://%s:%s/";
             URL status = new URL(format(wdaStatusUrl, LOCAL_IP, driverPort, "status"));
-            if (isServiceRunning(status, STATUS_QUICK_CHECK_TIMEOUT) && !device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)
+            if (isServiceRunning(status, STATUS_QUICK_CHECK_TIMEOUT) && !device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)
             ) {
                 LOG.error("There is no need to rebuild - WDA already on the mentioned port.");
                 return format(wdaUrl, driverPort);

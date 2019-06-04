@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static io.ochubey.devices.status.DeviceStatuses.*;
+import static io.ochubey.devices.status.DeviceStatusHelper.IDLE;
+import static io.ochubey.devices.status.DeviceStatusHelper.IN_TEST;
+import static io.ochubey.devices.status.DeviceStatusHelper.DISCONNECTED;
+import static io.ochubey.devices.status.DeviceStatusHelper.TEST_INITIALIZATION;
 import static io.ochubey.utils.ConfigurationValidator.getDevicePoolTimeoutMills;
 import static java.lang.Thread.sleep;
 

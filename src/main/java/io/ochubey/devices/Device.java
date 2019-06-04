@@ -2,7 +2,7 @@ package io.ochubey.devices;
 
 import org.springframework.data.annotation.Id;
 
-import static io.ochubey.devices.status.DeviceStatuses.NEED_SETUP;
+import static io.ochubey.devices.status.DeviceStatusHelper.NEED_SETUP;
 import static java.lang.String.format;
 
 public class Device {

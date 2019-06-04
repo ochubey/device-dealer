@@ -2,7 +2,7 @@ package io.ochubey.devices.repository;
 
 import io.ochubey.devices.Device;
 import io.ochubey.devices.status.DeviceStatusTracker;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -35,7 +35,7 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
     public Device bookByPlatform(String platform) {
         lock.lock();
         Device device = null;
-        Query availableDeviceQuery = new Query(Criteria.where(PLATFORM).is(platform.toLowerCase()).and(DEVICE_STATUS).is(DeviceStatuses.IDLE));
+        Query availableDeviceQuery = new Query(Criteria.where(PLATFORM).is(platform.toLowerCase()).and(DEVICE_STATUS).is(DeviceStatusHelper.IDLE));
         List<Device> devices = mongoTemplate.find(availableDeviceQuery, Device.class);
         if ((devices != null) && (!devices.isEmpty())) {
             device = devices.get(0);
@@ -49,7 +49,7 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
     public List<Device> findAllConnectedByPlatform(String platform) {
         lock.lock();
         Query availableDeviceQuery = new Query(Criteria.where(PLATFORM).is(platform.toLowerCase()).
-                and(DEVICE_STATUS).ne(DeviceStatuses.DISCONNECTED));
+                and(DEVICE_STATUS).ne(DeviceStatusHelper.DISCONNECTED));
         List<Device> devices = mongoTemplate.find(availableDeviceQuery, Device.class);
         lock.unlock();
         return devices;
@@ -69,12 +69,12 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
         lock.lock();
 
         Update update = new Update();
-        update.set(DEVICE_STATUS, DeviceStatuses.IDLE);
+        update.set(DEVICE_STATUS, DeviceStatusHelper.IDLE);
 
-        Query devicesInTestQuery = new Query(Criteria.where(PLATFORM).is(platform).and(DEVICE_STATUS).is(DeviceStatuses.IN_TEST));
+        Query devicesInTestQuery = new Query(Criteria.where(PLATFORM).is(platform).and(DEVICE_STATUS).is(DeviceStatusHelper.IN_TEST));
         mongoTemplate.updateMulti(devicesInTestQuery, update, Device.class);
 
-        Query devicesInTestInitQuery = new Query(Criteria.where(PLATFORM).is(platform).and(DEVICE_STATUS).is(DeviceStatuses.TEST_INITIALIZATION));
+        Query devicesInTestInitQuery = new Query(Criteria.where(PLATFORM).is(platform).and(DEVICE_STATUS).is(DeviceStatusHelper.TEST_INITIALIZATION));
         mongoTemplate.updateMulti(devicesInTestInitQuery, update, Device.class);
 
         lock.unlock();
@@ -85,7 +85,7 @@ public class DeviceRepositoryImpl implements DeviceExtendedRepository {
         lock.lock();
         Query deviceByUdidQuery = new Query(Criteria.where(UDID).is(device.getUdid()));
         Update update = new Update();
-        update.set(DEVICE_STATUS, DeviceStatuses.TEST_INITIALIZATION);
+        update.set(DEVICE_STATUS, DeviceStatusHelper.TEST_INITIALIZATION);
         mongoTemplate.updateFirst(deviceByUdidQuery, update, Device.class);
         lock.unlock();
         DeviceStatusTracker deviceStatusTracker = new DeviceStatusTracker(device, repository);

@@ -6,7 +6,7 @@ import io.ochubey.appium.android.AndroidAppiumServer;
 import io.ochubey.appium.ios.IosAppiumServer;
 import io.ochubey.devices.Device;
 import io.ochubey.devices.DeviceDescriptor;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.apache.commons.exec.OS;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -35,10 +35,10 @@ public class DeviceUpdater {
         LOG.info("Locked to work with device {}", deviceName);
 
         Device device = repository.findByUdid(udid);
-        if (device == null || device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)) {
-            if (device != null && device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)) {
+        if (device == null || device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)) {
+            if (device != null && device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)) {
                 LOG.warn("Device was reconnected, so we trying to create new Appium session: {}:{}", device.getDeviceName(), device.getUdid());
-                setStatus(device, DeviceStatuses.NEED_SETUP);
+                setStatus(device, DeviceStatusHelper.NEED_SETUP);
                 getAppiumServerUrl(device);
             } else {
                 int webPort = getFreePort();
@@ -51,7 +51,7 @@ public class DeviceUpdater {
                     getAppiumServerUrl(device);
                 } else {
                     LOG.error("Impossible to save device since there is no free port available.");
-                    setStatus(device, DeviceStatuses.NEED_SETUP);
+                    setStatus(device, DeviceStatusHelper.NEED_SETUP);
                     repository.save(device);
                 }
             }
@@ -176,7 +176,7 @@ public class DeviceUpdater {
         killProcessByPort(device.getDriverPort());
         killProcessByPort(device.getWebPort());
         stopService(device.getServerPort());
-        setStatus(device, DeviceStatuses.DISCONNECTED);
+        setStatus(device, DeviceStatusHelper.DISCONNECTED);
         LOG.warn("Device {}, {} was disconnected", device.getDeviceName(), device.getUdid());
     }
 

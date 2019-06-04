@@ -12,7 +12,7 @@ import io.ochubey.appium.DealerArguments;
 import io.ochubey.devices.Device;
 import io.ochubey.devices.repository.DeviceRepository;
 import io.ochubey.devices.repository.DeviceUpdater;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,8 +28,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.SESSION_OVERRIDE;
-import static io.ochubey.devices.status.DeviceStatuses.IDLE;
-import static io.ochubey.devices.status.DeviceStatuses.NEED_SETUP;
+import static io.ochubey.devices.status.DeviceStatusHelper.IDLE;
+import static io.ochubey.devices.status.DeviceStatusHelper.NEED_SETUP;
 import static io.ochubey.utils.ConfigurationValidator.getBlackListBundleIds;
 
 /**
@@ -57,7 +57,7 @@ public class IosAppiumServer {
         }
 
         final DeviceUpdater deviceUpdater = new DeviceUpdater(repository);
-        if (WdaServer.isServiceRunning(statusUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)) {
+        if (WdaServer.isServiceRunning(statusUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)) {
             LOG.error("There is no need to create new server - Appium already on the mentioned port.");
             return serverUrl;
         } else {

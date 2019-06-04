@@ -10,7 +10,7 @@ import io.ochubey.appium.ios.WdaServer;
 import io.ochubey.devices.Device;
 import io.ochubey.devices.repository.DeviceRepository;
 import io.ochubey.devices.repository.DeviceUpdater;
-import io.ochubey.devices.status.DeviceStatuses;
+import io.ochubey.devices.status.DeviceStatusHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -27,8 +27,8 @@ import java.net.URL;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.SESSION_OVERRIDE;
 import static io.ochubey.appium.AppiumServicePool.getServicePool;
 import static io.ochubey.appium.ios.IosAppiumServer.IP_ADDRESS;
-import static io.ochubey.devices.status.DeviceStatuses.IDLE;
-import static io.ochubey.devices.status.DeviceStatuses.NEED_SETUP;
+import static io.ochubey.devices.status.DeviceStatusHelper.IDLE;
+import static io.ochubey.devices.status.DeviceStatusHelper.NEED_SETUP;
 import static io.ochubey.utils.ConfigurationValidator.getBlackListBundleIds;
 
 /**
@@ -55,7 +55,7 @@ public class AndroidAppiumServer {
             LOG.trace(e.getMessage(), e);
         }
 
-        if (WdaServer.isServiceRunning(statusUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatuses.DISCONNECTED)) {
+        if (WdaServer.isServiceRunning(statusUrl, 5000) && !device.getDeviceStatus().equals(DeviceStatusHelper.DISCONNECTED)) {
             LOG.info("There is no need to create new server - Appium already on the mentioned port.");
             return serverUrl;
         } else {
