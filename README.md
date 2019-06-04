@@ -1,5 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1da616b4ab1e4bce8e661925c19fd6cb)](https://www.codacy.com/app/chubej/Device-Dealer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ochubey/Device-Dealer&amp;utm_campaign=Badge_Grade)
 ![Device Dealer icon](https://raw.githubusercontent.com/ochubey/Device-Dealer/master/src/main/resources/device_dealer.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer?ref=badge_shield)
 # Device-Dealer
 Device management service that will help you to run Appium tests in parallel with real devices in your local lab.
 
@@ -130,3 +131,7 @@ npm run doctor
 [Download Android SDK]:http://developer.android.com/sdk/installing/index.html
 [device-java-agent]:https://jitpack.io/#org.bitbucket.ochubey/device-java-agent
 [read more]:http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer?ref=badge_large)
