@@ -1,5 +1,4 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1da616b4ab1e4bce8e661925c19fd6cb)](https://www.codacy.com/app/chubej/Device-Dealer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ochubey/Device-Dealer&amp;utm_campaign=Badge_Grade)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer?ref=badge_small)
 ![Device Dealer icon](https://raw.githubusercontent.com/ochubey/Device-Dealer/master/src/main/resources/device_dealer.png)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fochubey%2FDevice-Dealer?ref=badge_shield)
 # Device-Dealer
